@@ -17,7 +17,7 @@ func startServer() {
 
 	port := ":" + p
 
-	dir := http.Dir("../ebooks")
+	dir := http.Dir("./ebooks")
 	fs := http.FileServer(dir)
 	http.Handle("/", fs)
 
