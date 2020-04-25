@@ -2,7 +2,7 @@ FROM golang:1.14.2-alpine
 
 RUN mkdir /app 
 
-ADD . /app/
+ADD . /
 
 WORKDIR /app 
 
