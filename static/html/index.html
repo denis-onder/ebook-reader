@@ -7,12 +7,18 @@
     <title>Ebook Reader</title>
   </head>
   <body>
-    <h1>{{ .Title }}</h1>
-    <h3>Number of books: {{ .NumberOfBooks }}</h3>
-    <ol>
-      {{range .Books}}
-      <li>{{.Name}}</li>
-      {{end}}
-    </ol>
+    <main class="reader">
+      <h1 class="reader_title">{{ .Title }}</h1>
+      <h3 class="reader_counter">Number of books: {{ .NumberOfBooks }}</h3>
+      <ol class="reader_list">
+        {{range .Books}}
+        <li class="reader_list_item">
+          <a href="/static/books/{{ .Name }}.pdf" class="reader_list_item_link"
+            >{{ .Name }}</a
+          >
+        </li>
+        {{end}}
+      </ol>
+    </main>
   </body>
 </html>

@@ -1,3 +1,16 @@
-h1 {
-  color: red;
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+}
+
+.reader {
+  width: 50%;
+}
+
+.reader_title,
+.reader_counter {
+  text-align: center;
 }
