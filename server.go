@@ -19,7 +19,7 @@ func startServer() {
 
 	dir := http.Dir("./ebooks")
 	fs := http.FileServer(dir)
-	http.Handle("/", fs)
+	http.Handle("/ebooks", fs)
 
 	fmt.Println("Listening on port " + port)
 
