@@ -2,16 +2,21 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"io/ioutil"
+	"log"
 	"net/http"
 )
 
 type book struct {
-	name string
+	Name string
 }
 
 type booksPage struct {
-	books []book
+	Title         string
+	Books         []book
+	NumberOfBooks int
+	Links         []string
 }
 
 func getBooks(dir string) ([]book, error) {
@@ -24,7 +29,13 @@ func getBooks(dir string) ([]book, error) {
 	}
 
 	for _, file := range files {
-		output = append(output, book{name: file.Name()})
+		name := file.Name()
+		runes := []rune(name)
+		extension := string(runes[len(runes)-4:])
+		if extension != ".pdf" {
+			continue
+		}
+		output = append(output, book{Name: string(runes[:len(runes)-4])})
 	}
 
 	return output, nil
@@ -37,7 +48,13 @@ func booksHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "<h1>No books found.</h1>")
 	}
 
-	for i, book := range books {
-		fmt.Fprintf(w, "<h1>%d. %s</h1>", i+1, book.name)
+	p := booksPage{Title: "Ebook Reader", Books: books, NumberOfBooks: len(books)}
+
+	t, err := template.ParseFiles("../static/html/index.html")
+
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	t.Execute(w, p)
 }

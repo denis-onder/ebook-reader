@@ -11,7 +11,7 @@ func startServer(port string) {
 	// Static files
 	staticDir := http.Dir("../static")
 	fs := http.FileServer(staticDir)
-	http.Handle("/static/", fs)
+	http.Handle("/static/", http.StripPrefix("/static", fs))
 
 	//Request handlers
 	http.HandleFunc("/", booksHandler)
