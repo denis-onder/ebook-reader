@@ -8,16 +8,10 @@ import (
 )
 
 func startServer(port string) {
-	dir, exists := os.LookupEnv("BOOKS_DIR")
-
-	if !exists {
-		fmt.Println("The books directory has not been set.")
-	}
-
 	// Static files
-	booksDir := http.Dir(dir)
-	fs := http.FileServer(booksDir)
-	http.Handle("/ebooks/", http.StripPrefix("/ebooks/", fs))
+	staticDir := http.Dir("../static")
+	fs := http.FileServer(staticDir)
+	http.Handle("/static/", fs)
 
 	//Request handlers
 	http.HandleFunc("/", booksHandler)

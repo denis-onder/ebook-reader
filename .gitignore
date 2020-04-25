@@ -15,4 +15,4 @@
 # vendor/
 
 app/main
-ebooks
+static/books

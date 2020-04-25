@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 type book struct {
@@ -32,13 +31,7 @@ func getBooks(dir string) ([]book, error) {
 }
 
 func booksHandler(w http.ResponseWriter, r *http.Request) {
-	dir, exists := os.LookupEnv("BOOKS_DIR")
-
-	if !exists {
-		fmt.Fprintf(w, "The books directory has not been set.")
-	}
-
-	books, err := getBooks(dir)
+	books, err := getBooks("../static/books")
 
 	if err != nil {
 		fmt.Fprintf(w, "<h1>No books found.</h1>")
