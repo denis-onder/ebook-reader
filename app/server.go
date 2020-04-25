@@ -7,22 +7,22 @@ import (
 	"os"
 )
 
-func startServer() {
-	p, exists := os.LookupEnv("PORT")
+func startServer(port string) {
+	dir, exists := os.LookupEnv("BOOKS_DIR")
 
 	if !exists {
-		fmt.Println("The port has not been set.")
-		os.Exit(1)
+		fmt.Println("The books directory has not been set.")
 	}
 
-	port := ":" + p
+	// Static files
+	booksDir := http.Dir(dir)
+	fs := http.FileServer(booksDir)
+	http.Handle("/ebooks/", http.StripPrefix("/ebooks/", fs))
 
-	dir := http.Dir("../ebooks")
-	fs := http.FileServer(dir)
-	http.Handle("/ebooks", fs)
+	//Request handlers
+	http.HandleFunc("/", booksHandler)
 
 	fmt.Println("Listening on port " + port)
-
 	err := http.ListenAndServe(port, nil)
 
 	if err != nil {
