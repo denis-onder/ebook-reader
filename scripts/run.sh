@@ -1,2 +1,5 @@
 #!/bin/bash
-cd ./app && env PORT="$1" ./main
+
+read -p "Port: " PORT
+
+cd ./app && env PORT="$PORT" ./main

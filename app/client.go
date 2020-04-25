@@ -16,7 +16,6 @@ type booksPage struct {
 	Title         string
 	Books         []book
 	NumberOfBooks int
-	Links         []string
 }
 
 func getBooks(dir string) ([]book, error) {

@@ -10,7 +10,21 @@ body {
   width: 50%;
 }
 
-.reader_title,
-.reader_counter {
-  text-align: center;
+.reader_list {
+  font-size: 16px;
+}
+
+.reader_list_item {
+  margin: 5px 0;
+}
+
+@media (max-width: 1024px) {
+  .reader {
+    width: 95%;
+    justify-content: start;
+  }
+  .reader_title,
+  .reader_counter {
+    text-align: center;
+  }
 }
